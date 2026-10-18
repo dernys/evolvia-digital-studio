@@ -57,7 +57,7 @@ export function SectionHead({ eyebrow, title }: { eyebrow: string; title: string
 }
 
 export function WorkflowDemo({ c }: { c: Content["demo"] }) {
-  const [sid, setSid] = useState(c.scenarios[0].id);
+  const [sid, setSid] = useState(c.scenarios[0]?.id ?? "");
   const [step, setStep] = useState(-1);
   const [running, setRunning] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
