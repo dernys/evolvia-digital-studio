@@ -135,17 +135,11 @@ export function ContactForm({ c }: { c: Content["contact"] }) {
   };
   const field = "w-full rounded-lg border border-input bg-surface px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none";
   if (sent) return <div role="status" className="rounded-2xl border border-primary bg-accent p-8 text-lg">{c.success}<button onClick={()=>setSent(false)} className="mt-6 block eyebrow text-accent-foreground">← Nuevo mensaje</button></div>;
-  const F = ({ n, label, type="text" }: { n: string; label: string; type?: string }) => (
-    <label className="block"><span className="mb-2 block text-sm text-muted-foreground">{label}</span>
-      <input name={n} type={type} className={field} aria-invalid={!!errors[n]} aria-describedby={errors[n]?`${n}-e`:undefined} />
-      {errors[n] && <span id={`${n}-e`} className="mt-1 block text-sm text-destructive">{errors[n]}</span>}
-    </label>
-  );
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-5">
-      <div className="grid gap-5 sm:grid-cols-2"><F n="name" label={c.fields.name} /><F n="email" label={c.fields.email} type="email" /></div>
+      <div className="grid gap-5 sm:grid-cols-2"><F errors={errors} field={field} n="name" label={c.fields.name} /><F errors={errors} field={field} n="email" label={c.fields.email} type="email" /></div>
       <div className="grid gap-5 sm:grid-cols-2">
-        <F n="company" label={c.fields.company} />
+        <F errors={errors} field={field} n="company" label={c.fields.company} />
         <label className="block"><span className="mb-2 block text-sm text-muted-foreground">{c.fields.interest}</span>
           <select name="interest" className={field}>{c.interests.map(i=><option key={i}>{i}</option>)}</select></label>
       </div>
@@ -158,5 +152,14 @@ export function ContactForm({ c }: { c: Content["contact"] }) {
         <p className="text-xs text-muted-foreground">{c.prototype}</p>
       </div>
     </form>
+  );
+}
+
+function F({ n, label, type = "text", errors, field }: { n: string; label: string; type?: string; errors: Record<string, string>; field: string }) {
+  return (
+    <label className="block"><span className="mb-2 block text-sm text-muted-foreground">{label}</span>
+      <input name={n} type={type} className={field} aria-invalid={!!errors[n]} aria-describedby={errors[n] ? `${n}-e` : undefined} />
+      {errors[n] && <span id={`${n}-e`} className="mt-1 block text-sm text-destructive">{errors[n]}</span>}
+    </label>
   );
 }
