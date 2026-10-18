@@ -27,22 +27,22 @@ function Index() {
       <Nav c={c} />
       <main id="main">
         {/* Hero */}
-        <section className="relative grain pt-32 pb-20 md:pt-40 md:pb-28">
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-12">
+        <section className="relative grain isolate pt-28 pb-20 md:pt-36 md:pb-28">
+          <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-8 xl:px-12">
             <div className="lg:col-span-7">
               <p className="eyebrow anim-rise">{c.hero.eyebrow}</p>
-              <h1 className="mt-6 font-display text-6xl leading-[0.95] tracking-tight anim-rise sm:text-7xl md:text-8xl" style={{animationDelay:".1s"}}>
+              <h1 className="mt-6 max-w-4xl font-display text-6xl leading-[0.92] tracking-[-0.045em] anim-rise sm:text-7xl md:text-8xl lg:text-[6.4rem]" style={{animationDelay:".1s"}}>
                 {c.hero.title[0]} <em className="text-primary">{c.hero.title[1]}</em><br />{c.hero.title[2]}
               </h1>
-              <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground anim-rise" style={{animationDelay:".2s"}}>{c.hero.lead}</p>
-              <div className="mt-10 flex flex-wrap gap-4 anim-rise" style={{animationDelay:".3s"}}>
-                <a href="#contacto" className="rounded-full bg-primary px-8 py-4 font-semibold text-primary-foreground transition hover:glow">{c.hero.primary} →</a>
-                <a href="#demo" className="rounded-full border border-line px-8 py-4 transition hover:bg-surface">{c.hero.secondary}</a>
+              <p className="mt-8 max-w-lg text-base leading-8 text-muted-foreground anim-rise sm:text-lg" style={{animationDelay:".2s"}}>{c.hero.lead}</p>
+              <div className="mt-10 flex flex-wrap items-center gap-3 anim-rise" style={{animationDelay:".3s"}}>
+                <a href="#contacto" className="rounded-full bg-primary px-7 py-4 font-semibold text-primary-foreground shadow-[0_0_32px_-12px_var(--color-primary)] transition duration-300 hover:-translate-y-0.5 hover:glow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">{c.hero.primary} →</a>
+                <a href="#demo" className="rounded-full border border-line px-7 py-4 transition duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">{c.hero.secondary}</a>
               </div>
             </div>
-            <div className="relative lg:col-span-5">
+            <div className="relative mx-auto w-full max-w-xl lg:col-span-5 lg:max-w-none">
               <div className="absolute inset-10 rounded-full bg-primary/10 blur-3xl" aria-hidden />
-              <NetworkArt className="relative w-full" />
+              <div className="relative rounded-[2rem] border border-line/80 bg-surface/35 p-3 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-5"><div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-primary/[0.08] via-transparent to-transparent pointer-events-none" aria-hidden /><NetworkArt className="relative w-full" /><div className="relative mx-2 mb-2 flex items-center justify-between border-t border-line/70 pt-4 text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:mx-4"><span>Estratégia · Engenharia · IA</span><span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary" /> Sistemas conectados</span></div></div>
             </div>
           </div>
         </section>
