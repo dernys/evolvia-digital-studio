@@ -3,12 +3,12 @@ import { z } from "zod";
 import type { Content } from "@/content/es";
 
 export function NetworkArt({ className = "" }: { className?: string }) {
-  const nodes = [[60,80],[200,40],[330,110],[120,210],[260,230],[380,260],[180,330],[320,360],[60,320]];
-  const edges = [[0,1],[1,2],[0,3],[3,4],[2,4],[4,5],[3,6],[6,7],[5,7],[8,6],[8,3],[1,4]];
+  const nodes: [number, number][] = [[60,80],[200,40],[330,110],[120,210],[260,230],[380,260],[180,330],[320,360],[60,320]];
+  const edges: [number, number][] = [[0,1],[1,2],[0,3],[3,4],[2,4],[4,5],[3,6],[6,7],[5,7],[8,6],[8,3],[1,4]];
   return (
     <svg viewBox="0 0 440 420" className={className} aria-hidden="true">
       {edges.map(([a,b],i)=>(
-        <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]}
+        <line key={i} x1={nodes[a]![0]} y1={nodes[a]![1]} x2={nodes[b]![0]} y2={nodes[b]![1]}
           className="anim-dash stroke-primary/50" strokeWidth="1" style={{animationDelay:`${i*-0.4}s`}} />
       ))}
       {nodes.map(([x,y],i)=>(
@@ -60,8 +60,8 @@ export function WorkflowDemo({ c }: { c: Content["demo"] }) {
   const [sid, setSid] = useState(c.scenarios[0].id);
   const [step, setStep] = useState(-1);
   const [running, setRunning] = useState(false);
-  const timer = useRef<ReturnType<typeof setInterval>>();
-  const sc = c.scenarios.find(s=>s.id===sid)!;
+  const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const sc = c.scenarios.find(s=>s.id===sid) ?? c.scenarios[0]!;
   useEffect(()=>()=>clearInterval(timer.current),[]);
   const reset = () => { clearInterval(timer.current); setRunning(false); setStep(-1); };
   const run = () => {
@@ -123,7 +123,7 @@ export function ContactForm({ c }: { c: Content["contact"] }) {
     email: z.string().trim().email(c.errors.email).max(255),
     company: z.string().trim().max(120).optional(),
     interest: z.string().max(60),
-    message: z.string().trim().min(10,c.errors.message).max(1000),
+    message: z.string().trim().min(10,c.errors["message"]).max(1000),
   });
   const [errors, setErrors] = useState<Record<string,string>>({});
   const [sent, setSent] = useState(false);
@@ -144,8 +144,8 @@ export function ContactForm({ c }: { c: Content["contact"] }) {
           <select name="interest" className={field}>{c.interests.map(i=><option key={i}>{i}</option>)}</select></label>
       </div>
       <label className="block"><span className="mb-2 block text-sm text-muted-foreground">{c.fields.message}</span>
-        <textarea name="message" rows={5} className={field} aria-invalid={!!errors.message} aria-describedby={errors.message?"message-e":undefined} />
-        {errors.message && <span id="message-e" className="mt-1 block text-sm text-destructive">{errors.message}</span>}
+        <textarea name="message" rows={5} className={field} aria-invalid={!!errors["message"]} aria-describedby={errors["message"]?"message-e":undefined} />
+        {errors["message"] && <span id="message-e" className="mt-1 block text-sm text-destructive">{errors["message"]}</span>}
       </label>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <button className="rounded-full bg-primary px-8 py-4 font-semibold text-primary-foreground transition hover:glow">{c.submit} →</button>
